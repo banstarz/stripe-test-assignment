@@ -8,12 +8,26 @@
     <h1>{{ item.name }}</h1>
     <p>{{ item.description }}</p>
     <p>{{ item.price }}</p>
+    <button id="add-to-cart">Add to Cart</button>
     <button id="buy-button">Buy</button>
     <script type="text/javascript">
-      var stripe = Stripe('pk_test_51M5raYHRnVUW1LfwUShBPFkbQo');
+      var buyButton = document.getElementById('add-to-cart');
+      buyButton.addEventListener('click', function() {
+        fetch('/add_to_cart/{{ item.pk }}', {
+          method: 'GET',
+        })
+        .then(function(result) {
+          if (result.error) {
+            alert(result.error.message);
+          }
+        });
+      });
+    </script>
+    <script type="text/javascript">
+      var stripe = Stripe('{{ stripe_key }}');
       var buyButton = document.getElementById('buy-button');
       buyButton.addEventListener('click', function() {
-        fetch('/buy/{{ item.pk }}', {
+        fetch('/buy/', {
           method: 'GET',
         })
         .then(function(response) {

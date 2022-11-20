@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Item
+from .models import Item, Order
 
 
 @admin.register(Item)
@@ -7,4 +7,10 @@ class ItemAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'price')
     list_filter = ('name', 'price')
 
-# Register your models here.
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('user', 'session_key', 'ordered')
+
+
+
